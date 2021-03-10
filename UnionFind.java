@@ -1,5 +1,3 @@
-package algs4;
-
 public class UnionFind {
     static int[] array;
     static int i = 0;
