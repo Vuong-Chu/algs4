@@ -1,5 +1,5 @@
 public class UnionFindLazy {
-    static int[] array;
+    private static int[] array;
 
     UnionFindLazy(int n){
         array = new int[n];

@@ -1,6 +1,6 @@
 public class UnionFind {
-    static int[] array;
-    static int i = 0;
+    private static int[] array;
+    private static int i = 0;
     UnionFind(int n){
         array = new int[n];
         for(int i=0; i<n; i++){

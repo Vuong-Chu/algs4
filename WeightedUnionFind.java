@@ -1,6 +1,6 @@
 public class WeightedUnionFind {
-    static int[] array;
-    static int[] sz;
+    private static int[] array;
+    private static int[] sz;
     WeightedUnionFind(int n){
         array = new int[n];
         sz = new int[n];
