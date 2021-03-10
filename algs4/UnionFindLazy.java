@@ -1,3 +1,5 @@
+package algs4;
+
 public class UnionFindLazy {
     static int[] array;
 

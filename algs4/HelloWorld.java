@@ -1,3 +1,5 @@
+package algs4;
+
 /**
  * This code is to print out a string to the screen
  * @author vuongchu

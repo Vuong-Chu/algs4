@@ -1,3 +1,5 @@
+package algs4;
+
 public class Main {
     public static void main(String[] args){
         UnionFind uf = new UnionFind(10);
