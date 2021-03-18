@@ -1,14 +1,19 @@
+import edu.princeton.cs.algs4.StdRandom;
+
 public class PercolationStats {
 
     private int[] results;
     // perform independent trials on an n-by-n grid
     public PercolationStats(int n, int trials){
-        Percolation percolation = new Percolation(n);
         results = new int[trials];
         for(int i=0; i<trials; i++){
-
+            Percolation percolation = new Percolation(n);
+            while(!percolation.percolates()) {
+                percolation.open(StdRandom.uniform(n), StdRandom.uniform(n));
+            }
             results[i] = percolation.numberOfOpenSites()/(n*n);
         }
+
     }
 
     // sample mean of percolation threshold
@@ -46,7 +51,10 @@ public class PercolationStats {
 
     // test client (see below)
     public static void main(String[] args){
-
+        PercolationStats stat = new PercolationStats(200, 100);
+        System.out.println(stat.mean());
+        System.out.println(stat.stddev());
+        System.out.println(stat.confidenceLo()+" "+stat.confidenceHi());
     }
 
 }

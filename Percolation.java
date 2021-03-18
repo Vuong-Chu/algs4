@@ -41,8 +41,10 @@ public class Percolation {
                     if(isOpen(row+1,col)){
                         UF.union(index, index+N);
                     }
-                    if(isOpen(row,col-1)){
-                        UF.union(index, index-1);
+                    if(col!=0){
+                        if(isOpen(row,col-1)){
+                            UF.union(index, index-1);
+                        }
                     }
                 }else{
                     if(col != N-1){
@@ -55,8 +57,10 @@ public class Percolation {
                             UF.union(index, index + N);
                         }
                     }
-                    if(isOpen(row,col-1)){
-                        UF.union(index, index-1);
+                    if(col!=0) {
+                        if (isOpen(row, col - 1)) {
+                            UF.union(index, index - 1);
+                        }
                     }
                     if(isOpen(row-1,col)){
                         UF.union(index, index-N);
@@ -97,6 +101,7 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args){
-
+        Percolation per = new Percolation(20);
+        System.out.println(per.isOpen(StdRandom.uniform(20),StdRandom.uniform(20)));
     }
 }
