@@ -111,7 +111,7 @@ public class Percolation {
         return quickUnionUF.find(sizeGrid*sizeGrid+1) == quickUnionUF.find(0);
     }
 
-    public int from2Dto1D(int row, int col){
+    private int from2Dto1D(int row, int col){
         return (row - 1) * sizeGrid + col;
     }
 
