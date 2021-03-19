@@ -1,5 +1,4 @@
 import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
     private static boolean[][] grid;
@@ -29,10 +28,10 @@ public class Percolation {
         }else {
             int index = row * N + col;
             if (!isOpen(row, col)) {
-                open++;
+                open+=1;
                 grid[row][col] = true;
                 if(row == 0){
-                    UF.union(index, N);
+                    UF.union(index, N*N);
                     if(col!=N-1){
                         if(isOpen(row,col+1)){
                             UF.union(index, index+1);
@@ -56,6 +55,8 @@ public class Percolation {
                         if (isOpen(row + 1, col)) {
                             UF.union(index, index + N);
                         }
+                    }else{
+                        UF.union(index,N*N+1);
                     }
                     if(col!=0) {
                         if (isOpen(row, col - 1)) {
@@ -85,7 +86,7 @@ public class Percolation {
             throw new IllegalArgumentException();
         }else {
             int index = row * N + col;
-            return isOpen(row, col) && UF.connected(index, N) ? true : false;
+            return isOpen(row, col) && UF.find(index)==UF.find(N*N) ? true : false;
         }
     }
 
@@ -96,12 +97,17 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates(){
-        return UF.connected(N+1,N);
+        return UF.find(N*N+1)==UF.find(N*N);
     }
 
     // test client (optional)
     public static void main(String[] args){
-        Percolation per = new Percolation(20);
-        System.out.println(per.isOpen(StdRandom.uniform(20),StdRandom.uniform(20)));
+        Percolation per = new Percolation(3);
+        per.open(0,0);
+        per.open(1,0);
+        per.open(2,0);
+        System.out.println(per.isOpen(0,0));
+        System.out.println(per.isFull(0,0));
+        System.out.println(per.percolates());
     }
 }
