@@ -4,7 +4,6 @@ public class Bag<Item> implements Iterable<Item> {
     private int N=0;
     private Node<Item> first;
     Bag(){
-        first = new Node();
     }
     public void add(Item item){
         Node<Item> oldFirst = first;
