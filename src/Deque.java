@@ -79,6 +79,7 @@ public class Deque<Item> implements Iterable<Item> {
             Item item = last.item;
             last = last.previous;
             last.next = null;
+            size--;
             return item;
         }
     }
@@ -94,14 +95,14 @@ public class Deque<Item> implements Iterable<Item> {
 
         @Override
         public boolean hasNext() {
-            return first!=null;
+            return current!=null;
         }
 
         @Override
         public Item next() {
             if(hasNext()){
-                Item item = first.item;
-                first = first.next;
+                Item item = current.item;
+                current = current.next;
                 return item;
             }else{
                 throw new java.util.NoSuchElementException();
@@ -131,8 +132,10 @@ public class Deque<Item> implements Iterable<Item> {
         deck.addLast(6);
         deck.addLast(7);
         deck.addLast(8);
+        System.out.println(deck.size());
         deck.removeFirst();
         deck.removeLast();
+        System.out.println(deck.size());
         while(deck.iterator().hasNext()) {
             System.out.println(deck.iterator().next());
         }
