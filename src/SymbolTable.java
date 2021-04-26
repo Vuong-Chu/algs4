@@ -2,10 +2,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SymbolTable<Key, Value> {
-    List<Node> ST;
+    List<Node<Key,Value>> ST;
     SymbolTable(){ST = new LinkedList<>();}
     public void put(Key key, Value value){
-        Node node = new Node(key, value);
+        Node<Key,Value> node = new Node<>(key, value);
         if(contains(key)){
             delete(key);
             ST.add(node);
@@ -14,9 +14,9 @@ public class SymbolTable<Key, Value> {
         }
     }
     public Value get(Key key){
-        for(Node node: ST){
+        for(Node<Key,Value> node: ST){
             if(node.key==key){
-                return (Value) node.value;
+                return node.value;
             }
         }
         return null;
@@ -44,7 +44,7 @@ public class SymbolTable<Key, Value> {
 class Node<Key,Value>{
     Key key;
     Value value;
-    Node next;
+    Node<Key,Value> next;
     Node(Key key, Value value){
         this.key = key;
         this.value = value;
