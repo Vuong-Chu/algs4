@@ -60,17 +60,17 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         double result = 0;
-        if((x-that.x)==0){
-            if(y > that.y){
-                result = Double.POSITIVE_INFINITY;
-            }else if(y < that.y){
-                result = Double.NEGATIVE_INFINITY;
-            }
+        if(that.x==x){
+                if(y == that.y){
+                    result = Double.NEGATIVE_INFINITY;
+                }else {
+                    result = Double.POSITIVE_INFINITY;
+                }
         }else{
             if(y == that.y){
                 result = 0;
             }else{
-                result = (y-that.y)*1.0/(x-that.x);
+                result = (that.y-y)*1.0/(that.x-x);
             }
         }
         return result;
@@ -141,7 +141,8 @@ public class Point implements Comparable<Point> {
     /**
      * Unit tests the Point data type.
      */
-//    public static void main(String[] args) {
-//        /* YOUR CODE HERE */
-//    }
+  public static void main(String[] args) {
+       System.out.println(new Point(338,458).slopeTo(new Point(338,3)));
+      System.out.println(new Point(338,3).slopeTo(new Point(338,458)));
+  }
 }
