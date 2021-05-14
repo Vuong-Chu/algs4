@@ -25,15 +25,12 @@ public class BruteCollinearPoints {
         for(int i=0; i<points.length-3; i++){
             for(int j=i+1; j<points.length-2; j++) {
                 for(int k=j+1; k<points.length-1; k++){
-                    if(points[i].slopeTo(points[j])!=points[j].slopeTo(points[k])){
-                        continue;
-                    }else {
                         for (int l = k + 1; l < points.length; l++) {
-                            if (points[i].slopeTo(points[j]) == points[k].slopeTo(points[l])) {
+                            if (points[i].slopeTo(points[j]) == points[j].slopeTo(points[k]) &&
+                                points[j].slopeTo(points[k]) == points[k].slopeTo(points[l])) {
                                 segments[index++] = new LineSegment(points[i],points[l]);
                             }
                         }
-                    }
                 }
             }
         }
@@ -46,7 +43,7 @@ public class BruteCollinearPoints {
     }
 
     public static void main(String[] args){
-        BruteCollinearPoints bruteCollinearPoints = new BruteCollinearPoints(new Point[]
+        BruteCollinearPoints bruteCollinearPoints1 = new BruteCollinearPoints(new Point[]
                         {new Point(10000,      0 ),
                         new Point(0,  10000 ),
                         new Point(3000,   7000 ),
@@ -56,8 +53,8 @@ public class BruteCollinearPoints {
                         new Point(14000,  15000),
                         new Point(6000,   7000)
                         });
-        System.out.println(bruteCollinearPoints.numberOfSegments());
-        for(LineSegment ls: bruteCollinearPoints.segments()){
+        System.out.println(bruteCollinearPoints1.numberOfSegments());
+        for(LineSegment ls: bruteCollinearPoints1.segments()){
             System.out.println(ls.toString());
         }
     }
