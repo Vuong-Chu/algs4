@@ -1,13 +1,15 @@
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FastCollinearPoints {
-    private final LineSegment[] segments;
+    private final List<LineSegment> segments;
     private int index = 0;
     public FastCollinearPoints(Point[] points){
         if(points==null){
             throw new IllegalArgumentException();
         }
-        segments = new LineSegment[points.length+1];
+        segments = new LinkedList<>();
         for(Point p : points){
             if(p==null) {
                 throw new IllegalArgumentException();
@@ -21,25 +23,26 @@ public class FastCollinearPoints {
             }
         }
         Point[] auxPoints = points.clone();
+        Arrays.sort(auxPoints);
         if(auxPoints.length >= 4){
-            for(int i=0; i<auxPoints.length; i++) {
-                Arrays.sort(auxPoints);
-                Point temp = auxPoints[i];
-                Arrays.sort(auxPoints, temp.slopeOrder());
+            for(Point point: auxPoints) {
+                Point temp = point;
+                Point[] p = auxPoints.clone();
+                Arrays.sort(p, temp.slopeOrder());
                 int count=1;
-                boolean order = true;
-                for (int j = 1; j < auxPoints.length; j++) {
-                    if(temp.slopeTo(auxPoints[j-1])==temp.slopeTo(auxPoints[j])){
-                        if(!(temp.compareTo(auxPoints[j-1])<0 && temp.compareTo(auxPoints[j])<0)){
+                boolean order = true; //Control by the direction
+                for (int j = 1; j < p.length; j++) {
+                    if(temp.slopeTo(p[j-1])==temp.slopeTo(p[j])){
+                        if(!(temp.compareTo(p[j-1])<0 && temp.compareTo(p[j])<0)){
                             order = false;
                         }
                         count++;
-                        if(count>=3 && j==auxPoints.length-1 && order){
-                            segments[index++] = new LineSegment(temp,auxPoints[j]);
+                        if(count>=3 && j==p.length-1 && order){
+                            segments.add(new LineSegment(temp,p[j]));
                         }
                     }else{
                         if(count>=3 && order){
-                            segments[index++] = new LineSegment(temp,auxPoints[j-1]);
+                            segments.add(new LineSegment(temp,p[j-1]));
                         }
                         count=1;
                         order=true;
@@ -49,10 +52,10 @@ public class FastCollinearPoints {
         }
     }
     public int numberOfSegments(){
-        return index;
+        return segments.size();
     }
     public LineSegment[] segments(){
-        return Arrays.copyOf(segments,index);
+        return segments.toArray(new LineSegment[0]);
     }
 
 //    public static void main(String[] args) throws FileNotFoundException {
