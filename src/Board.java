@@ -52,12 +52,16 @@ public class Board {
 
     // sum of Manhattan distances between tiles and goal
     public int manhattan(){
-
+        int countManhattan = 0;
+        for(int i=0; i<n*n-1; i++){
+            countManhattan += Math.abs(arr[i]/n-i/n)+Math.abs(arr[i]%n+i%n);
+        }
+        return countManhattan;
     }
 
     // is this board the goal board?
     public boolean isGoal(){
-
+        return hamming()==0;
     }
 
     // does this board equal y?
